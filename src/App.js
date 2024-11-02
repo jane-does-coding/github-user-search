@@ -31,12 +31,15 @@ function App() {
 
 	const fetchFollowers = async (url) => {
 		const response = await axios.get(url);
-		setFollowers(response.data.map((follower) => follower.login));
+		console.log(response.data);
+		setFollowers(response.data);
+		// setFollowers(response.data.map((follower) => follower.login));
 	};
 
 	const fetchFollowing = async (url) => {
 		const response = await axios.get(url);
-		setFollowing(response.data.map((followee) => followee.login));
+		setFollowing(response.data);
+		// setFollowing(response.data.map((followee) => followee.login));
 	};
 
 	const fetchRepos = async (url) => {
@@ -59,36 +62,41 @@ function App() {
 
 	return (
 		<div className="flex flex-col items-center">
-			<h1 className="text-2xl font-bold my-4">Search Github Users</h1>
+			<h1 className="text-3xl font-light mb-8 mt-[10vh]">
+				Search Github Users
+			</h1>
 			<div className="flex items-center gap-4 w-3/4 mb-4">
 				<input
 					type="text"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 					placeholder="Github Username"
-					className="input w-full py-2 px-3 border border-gray-300 rounded-md"
+					minLength={1}
+					className="input w-full py-2 px-3 border border-gray-200 rounded-md"
 				/>
 				<button
 					onClick={handleSubmit}
-					className="bg-blue-500 text-white py-2 px-4 rounded-md"
+					className="bg-indigo-400 text-white py-2 px-12 rounded-full text-lg"
 				>
-					Submit
+					Search
 				</button>
 			</div>
 
 			{userData && (
 				<div className="w-full">
 					{/* User basic display */}
+					<br />
 					<Header userData={userData} repos={repos} />
+					<br />
 
 					{/* Tabs */}
 					<div className="flex gap-4 justify-center w-4/5 mx-auto mb-4">
 						{options.map(({ label, value }) => (
 							<button
 								key={label}
-								className={`py-2 px-4 rounded-md text-lg ${
+								className={`py-2 px-4 rounded-md text-lg font-light ${
 									selectedValue === value
-										? "bg-blue-500 text-white"
+										? "bg-indigo-400 text-white"
 										: "bg-gray-100"
 								}`}
 								onClick={() => {
@@ -103,22 +111,36 @@ function App() {
 
 					{/* Content */}
 					{selectedTab === "followers" && (
-						<ul className="list-disc ml-8">
+						<div className="grid grid-cols-3 gap-6 ml-8">
 							{followers.map((follower, index) => (
-								<li key={index} className="text-lg">
-									{follower}
-								</li>
+								<div
+									key={index}
+									className="text-lg p-4 border-neutral-200 border-2 rounded-xl flex gap-4 items-center justify-start"
+								>
+									<img
+										src={follower.avatar_url}
+										className="w-[3rem] h-[3rem] object-cover rounded-full border-[1px] border-neutral-200"
+									/>
+									<h2>{follower.login}</h2>
+								</div>
 							))}
-						</ul>
+						</div>
 					)}
 					{selectedTab === "following" && (
-						<ul className="list-disc ml-8">
+						<div className="grid grid-cols-3 gap-6 ml-8">
 							{following.map((followee, index) => (
-								<li key={index} className="text-lg">
-									{followee}
-								</li>
+								<div
+									key={index}
+									className="text-lg p-4 border-neutral-200 border-2 rounded-xl flex gap-4 items-center justify-start"
+								>
+									<img
+										src={followee.avatar_url}
+										className="w-[3rem] h-[3rem] object-cover rounded-full border-[1px] border-neutral-200"
+									/>
+									<h2>{followee.login}</h2>
+								</div>
 							))}
-						</ul>
+						</div>
 					)}
 					{selectedTab === "repos" && <Repos repos={repos} />}
 				</div>
