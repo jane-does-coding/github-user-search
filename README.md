@@ -7,6 +7,8 @@
 
 ## Demo
 
+https://github-user-search-pearl.vercel.app/
+
 ## Tech Stack
 
 [![Technologies](https://skillicons.dev/icons?i=js,tailwind,react,git,github)](https://skillicons.dev)
