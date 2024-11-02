@@ -1,0 +1,14 @@
+.header {
+  margin: 2rem;
+  margin-top: 4rem;
+  width: 100%;
+  text-align: center;
+}
+
+.input {
+  height: 3rem !important;
+  font-size: 1.25rem !important;
+  border-radius: 10rem !important;
+  padding: 0.75rem 2rem !important;
+  width: 100% !important;
+}
