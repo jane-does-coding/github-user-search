@@ -86,7 +86,12 @@ function App() {
 				<div className="w-full">
 					{/* Person's Basic Info */}
 					<br />
-					<Header userData={userData} repos={repos} />
+					<Header
+						userData={userData}
+						repos={repos}
+						followers={followers}
+						following={following}
+					/>
 					<br />
 
 					{/* Tabs */}
