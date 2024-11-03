@@ -1,4 +1,4 @@
-# Github Search
+# Github Users Search
 
 ## Screenshots
 

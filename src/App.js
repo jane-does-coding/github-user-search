@@ -3,6 +3,8 @@ import axios from "axios";
 import Repo from "./components/Repo";
 import Repos from "./components/Repos";
 import Header from "./components/Header";
+import Followings from "./components/Followings";
+import Followers from "./components/Followers";
 
 function App() {
 	const [username, setUsername] = useState("");
@@ -33,13 +35,11 @@ function App() {
 		const response = await axios.get(url);
 		console.log(response.data);
 		setFollowers(response.data);
-		// setFollowers(response.data.map((follower) => follower.login));
 	};
 
 	const fetchFollowing = async (url) => {
 		const response = await axios.get(url);
 		setFollowing(response.data);
-		// setFollowing(response.data.map((followee) => followee.login));
 	};
 
 	const fetchRepos = async (url) => {
@@ -84,7 +84,7 @@ function App() {
 
 			{userData && (
 				<div className="w-full">
-					{/* User basic display */}
+					{/* Person's Basic Info */}
 					<br />
 					<Header userData={userData} repos={repos} />
 					<br />
@@ -109,39 +109,13 @@ function App() {
 						))}
 					</div>
 
-					{/* Content */}
-					{selectedTab === "followers" && (
-						<div className="grid grid-cols-3 gap-6 ml-8">
-							{followers.map((follower, index) => (
-								<div
-									key={index}
-									className="text-lg p-4 border-neutral-200 border-2 rounded-xl flex gap-4 items-center justify-start"
-								>
-									<img
-										src={follower.avatar_url}
-										className="w-[3rem] h-[3rem] object-cover rounded-full border-[1px] border-neutral-200"
-									/>
-									<h2>{follower.login}</h2>
-								</div>
-							))}
-						</div>
-					)}
-					{selectedTab === "following" && (
-						<div className="grid grid-cols-3 gap-6 ml-8">
-							{following.map((followee, index) => (
-								<div
-									key={index}
-									className="text-lg p-4 border-neutral-200 border-2 rounded-xl flex gap-4 items-center justify-start"
-								>
-									<img
-										src={followee.avatar_url}
-										className="w-[3rem] h-[3rem] object-cover rounded-full border-[1px] border-neutral-200"
-									/>
-									<h2>{followee.login}</h2>
-								</div>
-							))}
-						</div>
-					)}
+					{/* Followers */}
+					{selectedTab === "followers" && <Followers followers={followers} />}
+
+					{/* Following */}
+					{selectedTab === "following" && <Followings following={following} />}
+
+					{/* Repos */}
 					{selectedTab === "repos" && <Repos repos={repos} />}
 				</div>
 			)}
